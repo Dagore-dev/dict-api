@@ -13,6 +13,12 @@ export {
 async function getRandomController (request, response) {
   const { query } = request
   const { minLength, maxLength } = query
-  const randomWord = await getRandomService(minLength, maxLength)
-  response.send(randomWord)
+  const obj = await getRandomService(minLength, maxLength)
+
+  if (obj.randomWord != null) {
+    response.send(obj)
+  } else {
+    response.status(404)
+    response.send({ message: 'Not found' })
+  }
 }

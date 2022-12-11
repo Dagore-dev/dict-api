@@ -7,7 +7,7 @@ export {
 /**
  * @param {string|undefined} minLength
  * @param {string|undefined} maxLength
- * @returns {object}
+ * @returns {{randomWord: string|undefined}}
  */
 async function getRandomService (minLength, maxLength) {
   const letters = 'abcdefghijklmnñopqrstuvwxyz'
