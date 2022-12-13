@@ -10,6 +10,13 @@ app.use(express.json())
 
 app.use('/api/v1/spanishWords', spanishWordsRouter)
 
+app.all('*', (request, response) => {
+  const path = request.baseUrl + request.path
+
+  response.status(404)
+  response.send({ message: `${path} resource not found` })
+})
+
 const port = process.env.PORT ?? '3000'
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
