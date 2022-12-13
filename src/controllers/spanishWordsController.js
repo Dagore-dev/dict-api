@@ -3,7 +3,8 @@ import express from 'express'
 import { getRandomService } from '../services/spanishWordsService.js'
 
 export {
-  getRandomController
+  getRandomController,
+  notAllowed
 }
 
 /**
@@ -34,4 +35,17 @@ function getFilteredLimits (minLength, maxLength) {
   const max = maxLength && maxLength > 0 ? Number(maxLength) : Infinity
 
   return [min, max]
+}
+
+/**
+ * @param {express.Request} request
+ * @param {express.Response} response
+ */
+function notAllowed (request, response) {
+  const method = request.method
+  const path = request.baseUrl + request.path
+
+  response.status(405)
+  response.setHeader('Allow', 'GET')
+  response.send({ message: `${method} ${path} not allowed` })
 }
