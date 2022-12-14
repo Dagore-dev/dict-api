@@ -15,6 +15,13 @@ async function getRandomController (request, response) {
   const { query } = request
   const { minLength, maxLength } = query
   const [min, max] = getFilteredLimits(minLength, maxLength)
+
+  if (min > max) {
+    response.status(400)
+    response.send({ message: 'Bad request' })
+    return
+  }
+
   const obj = await getRandomService(min, max)
 
   if (obj.randomWord != null) {
